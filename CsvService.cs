@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
-using Loans_application.models;
+using CsvHelper.Configuration;
+using Loans_application.CSVModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,33 +13,39 @@ namespace Loans_application
 {
     class CsvService
     {
-        private const string _filePath = "static/large";
+        private const string _filePath = "Static/small";
 
-        public IEnumerable<Bank> GetBanks()
+        public IEnumerable<BankCSV> GetBanks()
         {
-            return GetData<Bank>("banks.csv");
+            return GetData<BankCSV>("banks.csv");
         }
 
-        public IEnumerable<Covenant> GetCovenants()
+        public IEnumerable<CovenantCSV> GetCovenants()
         {
-            return GetData<Covenant>("coventants.csv");
+            return GetData<CovenantCSV>("covenants.csv");
         }
-        public IEnumerable<Facility> GetFacilities()
+        public IEnumerable<FacilityCSV> GetFacilities()
         {
-            return GetData<Facility>("facilities.csv");
+            return GetData<FacilityCSV>("facilities.csv");
         }
 
-        public List<Loan> GetLoans()
+        public List<LoanCSV> GetLoans()
         {
-            return GetData<Loan>("loans.csv");
+            return GetData<LoanCSV>("loans.csv");
         }
 
         private List<T> GetData<T>(string fileName)
         {
             List<T> records;
 
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                
+            };
+
             using (TextReader reader = new StreamReader(GetFilePath(fileName)))
-            using(var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+            using(var csvReader = new CsvReader(reader, config))
             {
                 records = csvReader.GetRecords<T>().ToList();
             }
