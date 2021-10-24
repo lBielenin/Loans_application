@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Loans_application.models
+﻿namespace Loans_application.Models
 {
-    class Loan
+    public class Loan
     {
-        public int id { get; set; } 
-        public double interest_rate { get; set; }
-        public double amount { get; set; }
-        public double default_likelihood { get; set; }
-        public string state { get; set; }
+        public int Id { get; set; }
+        public double InterestRate { get; set; }
+        public double Amount { get; set; }
+        public double DefaultLikelihood { get; set; }
+        public string State { get; set; }
 
+        public int? FacilityId { get; set; }
     }
 }

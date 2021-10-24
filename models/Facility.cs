@@ -1,17 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Loans_application.models
+namespace Loans_application.Models
 {
-    class Facility
+    public class Facility
     {
-        public int id { get; set; }
-        public double amount { get; set; }
-        public double interest_rate { get; set; }
-        public int bank_id { get; set; }
+        public int Id { get; set; }
+        public double Amount { get; set; }
+        public double InterestRate { get; set; }
+        public int BankId { get; set; }
+        public double RealCovering { get => AssignedLoans.Select(l => l.Amount).Sum(); }
+        public double RealAmount { get => Amount - RealCovering; }
 
+        public bool CanLoanBeCovered(double amount) => RealAmount >= amount;
+
+        private List<Loan> _assignedLoans = new ();
+        public IReadOnlyList<Loan> AssignedLoans
+        {
+            get { return _assignedLoans.AsReadOnly(); }
+        }
+
+
+        public void AddLoan(Loan loan)
+        {
+            loan.FacilityId = Id;
+            _assignedLoans.Add(loan);
+        }
+
+        public void RemoveLoan(Loan loan)
+        {
+            loan.FacilityId = null;
+            _assignedLoans.Remove(loan);
+        }
     }
 }
