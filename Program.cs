@@ -18,6 +18,9 @@ namespace Loans_application
         private static List<FacilityCovenant> _facilityCovenants;
         private static List<Loan> _unManagedLoans;
         private static List<Loan> _managedLoans;
+        private static List<Loan> _unmanageableLoans;
+        private static double _sumOfFacilitiesCoverage = 0;
+        private static double _sumOfLoans = 0;
         static void Main(string[] args)
         {
             SetupData();
@@ -28,9 +31,17 @@ namespace Loans_application
                 Loan currentLoan = 
                     _unManagedLoans.First();
 
+                if(_sumOfLoans + currentLoan.Amount > _sumOfFacilitiesCoverage)
+                {
+                    break;
+                }
+
                 List<Facility> possibleFacilites = 
                     GetPossibleFacilites(currentLoan);
-
+                if(!possibleFacilites.Any())
+                {
+                    DisposeLoan(currentLoan);
+                }
                 List<Facility> eligibleFacilites = 
                     possibleFacilites.Where(fac => fac.CanLoanBeCovered(currentLoan.Amount)).ToList();
 
@@ -93,12 +104,20 @@ namespace Loans_application
         {
             _unManagedLoans.Remove(loan);
             _managedLoans.Add(loan);
+            _sumOfLoans += loan.Amount;
         }
 
         private static void MoveLoanToUnmanaged(Loan loan)
         {
             _managedLoans.Remove(loan);
             _unManagedLoans.Add(loan);
+        }
+
+        private static void DisposeLoan(Loan loan)
+        {
+            _managedLoans.Remove(loan);
+            _unmanageableLoans.Add(loan);
+            _sumOfLoans -= loan.Amount;
         }
 
         private static void SetupData()
@@ -118,6 +137,7 @@ namespace Loans_application
                         Covenants = _covenants.Where(cov => cov.FacilityId == facility.Id)
                     }).ToList();
 
+            _sumOfFacilitiesCoverage = _facilities.Select(fac => fac.Amount).Sum();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Loans_application
 {
     class CsvService
     {
-        private const string _filePath = "Static/small";
+        private const string _filePath = "Static/large";
 
         public IEnumerable<BankCSV> GetBanks()
         {
