@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Loans_application.Models
 {
-    class Covenant
+    public class Covenant
     {
         public int FacilityId { get; set; }
         public double MaxDefaultLikelihood { get; set; }

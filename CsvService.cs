@@ -1,19 +1,21 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Loans_application.CSVModels;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Loans_application
 {
     class CsvService
     {
-        private const string _filePath = "Static/large";
+        private readonly string _filePath = "Static/large";
+
+        public CsvService(string dataSetName)
+        {
+            _filePath = $"Static/{dataSetName}";
+        }
 
         public IEnumerable<BankCSV> GetBanks()
         {
@@ -41,7 +43,6 @@ namespace Loans_application
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
-                
             };
 
             using (TextReader reader = new StreamReader(GetFilePath(fileName)))

@@ -4,7 +4,18 @@
     {
         public Loan Loan { get; }
         public Facility Facility { get; }
-        public double Cost { get => Loan.Amount + (Loan.Amount + Loan.Amount * Loan.InterestRate) * Facility.InterestRate; }
+
+        public double Cost 
+        {
+            get
+            {
+                var amountInterest = Loan.Amount + Loan.Amount * Loan.InterestRate;
+                var allInterests = amountInterest + amountInterest * Facility.InterestRate;
+
+                return allInterests;
+            }
+        }
+
         public LoanFacilityPair(Loan loan, Facility facility)
         {
             Loan = loan;
