@@ -15,7 +15,7 @@ namespace Loans_application
         static void Main(string[] args)
         {
             WriteLine("Welcome to Loans Application!");
-            WriteLine("Please, press button to select data set or esc to q");
+            WriteLine("Please, press button to select data set or q to quit");
             WriteLine("1: small");
             WriteLine("2. large");
 
@@ -48,11 +48,11 @@ namespace Loans_application
                         pickedDataSet = DataSetNames.LARGE;
                         isPicked = true;
                         break;
-                    case 'q':
+                    case 'Q':
                         Environment.Exit(0);
                         break;
                     default:
-                        WriteLine("Invalid button, try again.");
+                        WriteLine("\nInvalid button, try again.");
                         break;
                 }
             } while (!isPicked);
