@@ -9,8 +9,8 @@
         {
             get
             {
-                var amountInterest = Loan.Amount + Loan.Amount * Loan.InterestRate;
-                var allInterests = amountInterest + amountInterest * Facility.InterestRate;
+                double amountInterest = Loan.Amount + Loan.Amount * Loan.InterestRate;
+                double allInterests = amountInterest + amountInterest * Facility.InterestRate;
 
                 return allInterests;
             }

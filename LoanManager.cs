@@ -1,12 +1,12 @@
-﻿using Loans_application.Models;
+﻿using Loans_application.Contracts;
+using Loans_application.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Loans_application
 {
-
-    public class LoanManager
+    public class LoanManager : ILoanManager
     {
         private List<Loan> _loans;
         private List<Facility> _facilities;
@@ -18,24 +18,15 @@ namespace Loans_application
         private double _sumOfFacilitiesCoverage = 0;
         private double _sumOfLoans = 0;
 
-        public LoanManager(
+        public List<LoanFacilityPair> ManageLoans(
             List<Loan> loans,
             List<Facility> facilities,
             List<Covenant> covenants)
         {
-            _loans = loans;
-            _facilities = facilities;
-            _covenants = covenants;
-        }
-
-
-        public List<LoanFacilityPair> ManageLoans()
-        {
-            SetupData();
+            SetupData(loans, facilities, covenants);
 
             while (_unManagedLoans.Count > 0)
             {
-
                 Loan currentLoan =
                     _unManagedLoans.First();
 
@@ -84,8 +75,15 @@ namespace Loans_application
                 .Select(loan => new LoanFacilityPair(loan, _facilities.First(fac => fac.Id == loan.FacilityId))).ToList();
         }
 
-        private void SetupData()
+        private void SetupData(
+            List<Loan> loans,
+            List<Facility> facilities,
+            List<Covenant> covenants)
         {
+            _loans = loans;
+            _facilities = facilities;
+            _covenants = covenants;
+
             _unManagedLoans = _loans;
             _managedLoans = new();
 
@@ -104,7 +102,7 @@ namespace Loans_application
         {
             var facilities = new List<Facility>();
 
-            foreach (var facCovenant in _facilityCovenants)
+            foreach (FacilityCovenant facCovenant in _facilityCovenants)
             {
                 if (facCovenant.Facility.Amount >= loan.Amount)
                 {
@@ -113,7 +111,8 @@ namespace Loans_application
                         facilities.Add(facCovenant.Facility);
                         continue;
                     }
-                    var applicableCovenant = facCovenant.Covenants.First(cov => cov.BannedState == loan.State);
+                    Covenant applicableCovenant = 
+                        facCovenant.Covenants.First(cov => cov.BannedState == loan.State);
 
                     if (applicableCovenant.MaxDefaultLikelihood <= loan.DefaultLikelihood)
                         facilities.Add(facCovenant.Facility);
@@ -143,8 +142,5 @@ namespace Loans_application
             _unmanageableLoans.Add(loan);
             _sumOfLoans -= loan.Amount;
         }
-
     }
-
-
 }

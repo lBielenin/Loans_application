@@ -1,8 +1,7 @@
 ﻿namespace Loans_application.Models
 {
-    public class Loan
+    public class Loan : BaseIdModel
     {
-        public int Id { get; set; }
         public double InterestRate { get; set; }
         public double Amount { get; set; }
         public double DefaultLikelihood { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Loans_application.CSVModels
 {
-    public class CovenantCSV
+    public record CovenantCSV
     {
         [Name("facility_id")]
         public int FacilityId { get; set; }

@@ -3,9 +3,8 @@ using System.Linq;
 
 namespace Loans_application.Models
 {
-    public class Facility
+    public class Facility : BaseIdModel
     {
-        public int Id { get; set; }
         public double Amount { get; set; }
         public double InterestRate { get; set; }
         public int BankId { get; set; }

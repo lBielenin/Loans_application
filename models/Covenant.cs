@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Loans_application.Models
+﻿namespace Loans_application.Models
 {
     public class Covenant
     {

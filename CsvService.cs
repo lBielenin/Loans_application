@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using Loans_application.Contracts;
 using Loans_application.CSVModels;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,33 +9,26 @@ using System.Linq;
 
 namespace Loans_application
 {
-    class CsvService
+    internal class CsvService : ICSVService
     {
-        private readonly string _filePath = "Static/large";
+        private readonly string _filePath;
 
         public CsvService(string dataSetName)
         {
             _filePath = $"Static/{dataSetName}";
         }
 
-        public IEnumerable<BankCSV> GetBanks()
-        {
-            return GetData<BankCSV>("banks.csv");
-        }
+        public IEnumerable<BankCSV> GetBanks() => 
+            GetData<BankCSV>("banks.csv");
 
-        public IEnumerable<CovenantCSV> GetCovenants()
-        {
-            return GetData<CovenantCSV>("covenants.csv");
-        }
-        public IEnumerable<FacilityCSV> GetFacilities()
-        {
-            return GetData<FacilityCSV>("facilities.csv");
-        }
+        public IEnumerable<CovenantCSV> GetCovenants() => 
+            GetData<CovenantCSV>("covenants.csv");
 
-        public List<LoanCSV> GetLoans()
-        {
-            return GetData<LoanCSV>("loans.csv");
-        }
+        public IEnumerable<FacilityCSV> GetFacilities() => 
+            GetData<FacilityCSV>("facilities.csv");
+
+        public IEnumerable<LoanCSV> GetLoans() => 
+            GetData<LoanCSV>("loans.csv");
 
         private List<T> GetData<T>(string fileName)
         {
