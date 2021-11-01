@@ -8,9 +8,9 @@ namespace Loans_application
     internal class LoanApplicationDataFacade
     {
         private readonly ICSVService _csvService;
-        private readonly ILoanManager _loanManager;
+        private readonly ILoanManagerService _loanManager;
 
-        public LoanApplicationDataFacade(ICSVService csvService, ILoanManager loanManager)
+        public LoanApplicationDataFacade(ICSVService csvService, ILoanManagerService loanManager)
         {
             _csvService = csvService;
             _loanManager = loanManager;

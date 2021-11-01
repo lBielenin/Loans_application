@@ -1,5 +1,6 @@
 ﻿using Loans_application.Contants;
 using Loans_application.Models;
+using Loans_application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Loans_application
 
             string dataSetValue = GetDataSetValueFromUserInput();
 
-            var facade = new LoanApplicationDataFacade(new CsvService(dataSetValue), new LoanManager());
+            var facade = new LoanApplicationDataFacade(new CsvService(dataSetValue), new LoanManagerService());
 
             List<LoanFacilityPair> result = facade.CalculateLoansFromCSVData();
 

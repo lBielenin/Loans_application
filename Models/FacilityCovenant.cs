@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Loans_application.Models
 {
-    class FacilityCovenant
+    public class FacilityCovenant
     {
         public Facility Facility { get; set; }
         public IEnumerable<Covenant> Covenants { get; set; }

@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Loans_application
+namespace Loans_application.Services
 {
-    public class LoanManager : ILoanManager
+    public class LoanManagerService : ILoanManagerService
     {
         private List<Loan> _loans;
         private List<Facility> _facilities;

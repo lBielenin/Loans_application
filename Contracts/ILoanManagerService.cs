@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Loans_application.Contracts
 {
-    interface ILoanManager
+    interface ILoanManagerService
     {
         public List<LoanFacilityPair> ManageLoans(
             List<Loan> loans,

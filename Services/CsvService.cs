@@ -7,9 +7,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace Loans_application
+namespace Loans_application.Services
 {
-    internal class CsvService : ICSVService
+    public class CsvService : ICSVService
     {
         private readonly string _filePath;
 
